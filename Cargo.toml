@@ -1,0 +1,9 @@
+[package]
+name = "axhvc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+log = "0.4"
+axerrno = "0.1.0"
+numeric-enum-macro = { git = "https://github.com/mexus/numeric-enum-macro.git" }
