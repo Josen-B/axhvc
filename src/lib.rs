@@ -15,12 +15,18 @@ numeric_enum! {
         HypervisorDisable = 0,
         /// Prepare to disable the hypervisor, map the hypervisor memory to the guest.
         HyperVisorPrepareDisable = 1,
+        /// Only for debugging purposes.
         HDebug = HYPER_CALL_CODE_PRIVILEGED_MASK | 0,
-        HInitGateProcess = HYPER_CALL_CODE_PRIVILEGED_MASK | 1,
-        HCreateInstance = HYPER_CALL_CODE_PRIVILEGED_MASK | 2,
-        HCreateInitProcess = HYPER_CALL_CODE_PRIVILEGED_MASK | 3,
+        /// Create a new instance, including the first gate instance.
+        HCreateInstance = HYPER_CALL_CODE_PRIVILEGED_MASK | 1,
+        /// Exit from a insance.
+        HExitInstance = HYPER_CALL_CODE_PRIVILEGED_MASK | 2,
         HMMAP = HYPER_CALL_CODE_PRIVILEGED_MASK | 4,
         HClone = HYPER_CALL_CODE_PRIVILEGED_MASK | 5,
+        /// Only for debugging purposes, console read.
+        HRead = HYPER_CALL_CODE_PRIVILEGED_MASK | 0x11,
+        /// Only for debugging purposes, console write.
+        HWrite = HYPER_CALL_CODE_PRIVILEGED_MASK | 0x12,
     }
 }
 
@@ -33,13 +39,10 @@ impl core::fmt::Debug for HyperCallCode {
                 write!(f, "HyperVisorPrepareDisable {:#x}", *self as u32)
             }
             HyperCallCode::HDebug => write!(f, "HDebug {:#x}", *self as u32),
-            HyperCallCode::HInitGateProcess => {
-                write!(f, "HInitGateProcess {:#x}", *self as u32)
-            }
+            HyperCallCode::HRead => write!(f, "HRead {:#x}", *self as u32),
+            HyperCallCode::HWrite => write!(f, "HWrite {:#x}", *self as u32),
             HyperCallCode::HCreateInstance => write!(f, "HCreateInstance {:#x}", *self as u32),
-            HyperCallCode::HCreateInitProcess => {
-                write!(f, "HCreateInitProcess {:#x}", *self as u32)
-            }
+            HyperCallCode::HExitInstance => write!(f, "HExitInstance {:#x}", *self as u32),
             HyperCallCode::HMMAP => write!(f, "HMMAP {:#x}", *self as u32),
             HyperCallCode::HClone => write!(f, "HClone {:#x}", *self as u32),
         }?;
