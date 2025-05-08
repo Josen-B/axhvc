@@ -15,14 +15,20 @@ numeric_enum! {
         HypervisorDisable = 0,
         /// Prepare to disable the hypervisor, map the hypervisor memory to the guest.
         HyperVisorPrepareDisable = 1,
+
+        /// Only for debugging purposes.
+        HyperVisorDebug = 2,
+
         /// Only for debugging purposes.
         HDebug = HYPER_CALL_CODE_PRIVILEGED_MASK | 0,
         /// Create a new instance, including the first gate instance.
         HCreateInstance = HYPER_CALL_CODE_PRIVILEGED_MASK | 1,
-        /// Exit from a insance.
-        HExitInstance = HYPER_CALL_CODE_PRIVILEGED_MASK | 2,
+        /// Exit from a insance process.
+        HExitProcess = HYPER_CALL_CODE_PRIVILEGED_MASK | 2,
         HMMAP = HYPER_CALL_CODE_PRIVILEGED_MASK | 4,
         HClone = HYPER_CALL_CODE_PRIVILEGED_MASK | 5,
+        // Init ring 0 shim.
+        HInitShim = HYPER_CALL_CODE_PRIVILEGED_MASK | 6,
         /// Only for debugging purposes, console read.
         HRead = HYPER_CALL_CODE_PRIVILEGED_MASK | 0x11,
         /// Only for debugging purposes, console write.
@@ -38,13 +44,15 @@ impl core::fmt::Debug for HyperCallCode {
             HyperCallCode::HyperVisorPrepareDisable => {
                 write!(f, "HyperVisorPrepareDisable {:#x}", *self as u32)
             }
+            HyperCallCode::HyperVisorDebug => write!(f, "HyperVisorDebug {:#x}", *self as u32),
             HyperCallCode::HDebug => write!(f, "HDebug {:#x}", *self as u32),
             HyperCallCode::HRead => write!(f, "HRead {:#x}", *self as u32),
             HyperCallCode::HWrite => write!(f, "HWrite {:#x}", *self as u32),
             HyperCallCode::HCreateInstance => write!(f, "HCreateInstance {:#x}", *self as u32),
-            HyperCallCode::HExitInstance => write!(f, "HExitInstance {:#x}", *self as u32),
+            HyperCallCode::HExitProcess => write!(f, "HExitProcess {:#x}", *self as u32),
             HyperCallCode::HMMAP => write!(f, "HMMAP {:#x}", *self as u32),
             HyperCallCode::HClone => write!(f, "HClone {:#x}", *self as u32),
+            HyperCallCode::HInitShim => write!(f, "HInitShim {:#x}", *self as u32),
         }?;
         write!(f, ")")
     }
