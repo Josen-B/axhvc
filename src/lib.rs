@@ -15,17 +15,17 @@ numeric_enum! {
         HypervisorDisable = 0,
         /// Prepare to disable the hypervisor, map the hypervisor memory to the guest.
         HyperVisorPrepareDisable = 1,
-
         /// Only for debugging purposes.
         HyperVisorDebug = 2,
 
         /// Only for debugging purposes.
         HDebug = HYPER_CALL_CODE_PRIVILEGED_MASK | 0,
-        /// Create a new instance, including the first gate instance.
+        /// Create a new instance, pass the raw binary/executable file by shared pages.
         HCreateInstance = HYPER_CALL_CODE_PRIVILEGED_MASK | 1,
         /// Exit from a insance process.
         HExitProcess = HYPER_CALL_CODE_PRIVILEGED_MASK | 2,
         HMMAP = HYPER_CALL_CODE_PRIVILEGED_MASK | 4,
+        /// Clone current gaddrspace to a new one, return its EPTP list index.
         HClone = HYPER_CALL_CODE_PRIVILEGED_MASK | 5,
         // Init ring 0 shim.
         HInitShim = HYPER_CALL_CODE_PRIVILEGED_MASK | 6,
