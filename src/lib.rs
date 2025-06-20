@@ -17,13 +17,14 @@ numeric_enum! {
         HyperVisorPrepareDisable = 1,
         /// Only for debugging purposes.
         HyperVisorDebug = 2,
-
         /// Only for debugging purposes.
         HDebug = HYPER_CALL_CODE_PRIVILEGED_MASK | 0,
         /// Create a new instance, pass the raw binary/executable file by shared pages.
         HCreateInstance = HYPER_CALL_CODE_PRIVILEGED_MASK | 1,
         /// Exit from a insance process.
         HExitProcess = HYPER_CALL_CODE_PRIVILEGED_MASK | 2,
+        /// Exit from a instance, this is called by the instance when the last process in the instance exits.
+        HShutdownInstance = HYPER_CALL_CODE_PRIVILEGED_MASK | 3,
         HMMAP = HYPER_CALL_CODE_PRIVILEGED_MASK | 4,
         /// Clone current gaddrspace to a new one, return its EPTP list index.
         HClone = HYPER_CALL_CODE_PRIVILEGED_MASK | 5,
@@ -50,6 +51,7 @@ impl core::fmt::Debug for HyperCallCode {
             HyperCallCode::HWrite => write!(f, "HWrite {:#x}", *self as u32),
             HyperCallCode::HCreateInstance => write!(f, "HCreateInstance {:#x}", *self as u32),
             HyperCallCode::HExitProcess => write!(f, "HExitProcess {:#x}", *self as u32),
+            HyperCallCode::HShutdownInstance => write!(f, "HShutdownInstance {:#x}", *self as u32),
             HyperCallCode::HMMAP => write!(f, "HMMAP {:#x}", *self as u32),
             HyperCallCode::HClone => write!(f, "HClone {:#x}", *self as u32),
             HyperCallCode::HInitShim => write!(f, "HInitShim {:#x}", *self as u32),
